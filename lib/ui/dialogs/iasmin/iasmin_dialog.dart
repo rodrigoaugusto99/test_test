@@ -4,15 +4,15 @@ import 'package:test_test/ui/common/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-import 'info_alert_dialog_model.dart';
+import 'iasmin_dialog_model.dart';
 
 const double _graphicSize = 60;
 
-class InfoAlertDialog extends StackedView<InfoAlertDialogModel> {
+class IasminDialog extends StackedView<IasminDialogModel> {
   final DialogRequest request;
   final Function(DialogResponse) completer;
 
-  const InfoAlertDialog({
+  const IasminDialog({
     Key? key,
     required this.request,
     required this.completer,
@@ -21,7 +21,7 @@ class InfoAlertDialog extends StackedView<InfoAlertDialogModel> {
   @override
   Widget builder(
     BuildContext context,
-    InfoAlertDialogModel viewModel,
+    IasminDialogModel viewModel,
     Widget? child,
   ) {
     return Dialog(
@@ -31,15 +31,13 @@ class InfoAlertDialog extends StackedView<InfoAlertDialogModel> {
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: [
-            Text('dialogo'),
-          ],
+          children: [Text('meu novo dialogo IASMIN')],
         ),
       ),
     );
   }
 
   @override
-  InfoAlertDialogModel viewModelBuilder(BuildContext context) =>
-      InfoAlertDialogModel();
+  IasminDialogModel viewModelBuilder(BuildContext context) =>
+      IasminDialogModel();
 }
