@@ -42,6 +42,8 @@ class Home2ViewModel extends BaseViewModel {
   }
 
   // Método para buscar um usuário pelo CPF
+  //todo: colocar essa funcao no service(chamar o service aqui)
+
   Future<void> getNameByCpf() async {
     try {
       var querySnapshot = await FirebaseFirestore.instance

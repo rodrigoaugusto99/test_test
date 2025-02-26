@@ -12,8 +12,8 @@ class UserModel {
   // Método para criar um UserModel a partir de um Map de dados (do Firestore)
   factory UserModel.fromMap(Map<String, dynamic> data, String documentId) {
     return UserModel(
-      cpf: documentId, // O CPF será o documentId, que é único
-      nome: data['nome'],
+      cpf: data['cpf'],
+      nome: data['name'],
       idade: data['idade'],
     );
   }
@@ -23,6 +23,7 @@ class UserModel {
     return {
       'nome': nome,
       'idade': idade,
+      'cpf': cpf,
     };
   }
 }

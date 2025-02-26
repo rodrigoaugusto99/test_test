@@ -12,29 +12,29 @@ class Home2View extends StackedView<Home2ViewModel> {
     Home2ViewModel viewModel,
     Widget? child,
   ) {
-   return Scaffold(
-          appBar: AppBar(title: const Text('Home View')),
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextField(
-                  controller: viewModel.controller,
-                  decoration: const InputDecoration(
-                    labelText: 'Digite o CPF',
-                  ),
-                ),
-                const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: viewModel
-                      .getNameByCpf, // Chama a função apenas quando o botão for pressionado
-                  child: const Text('Buscar Usuário'),
-                ),
-                // Outros widgets ou funcionalidades...
-              ],
+    return Scaffold(
+      appBar: AppBar(title: const Text('Home View')),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextField(
+              controller: viewModel.controller,
+              decoration: const InputDecoration(
+                labelText: 'Digite o CPF',
+              ),
             ),
-          ),
-        );
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: viewModel
+                  .getNameByCpf, // Chama a função apenas quando o botão for pressionado
+              child: const Text('Buscar Usuário'),
+            ),
+            //mostrar os dados
+          ],
+        ),
+      ),
+    );
   }
 
   @override
