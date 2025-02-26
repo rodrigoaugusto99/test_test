@@ -1,55 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:test_test/ui/common/app_colors.dart';
-import 'package:test_test/ui/common/ui_helpers.dart';
+import 'package:test_test/ui/views/home/home_viewmodel.dart';
 
-import 'home_viewmodel.dart';
-
-class HomeView extends StackedView<HomeViewModel> {
+class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
 
   @override
-  Widget builder(
-    BuildContext context,
-    HomeViewModel viewModel,
-    Widget? child,
-  ) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0),
-          child: Center(
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<HomeViewModel>.reactive(
+      viewModelBuilder: () => HomeViewModel(),
+      builder: (context, model, child) {
+        return Scaffold(
+          appBar: AppBar(title: const Text('Home View')),
+          body: Center(
             child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                verticalSpaceLarge,
-                Column(
-                  children: [
-                    TextField(
-                      controller: viewModel.controller,
-                    ),
-                    ElevatedButton(
-                      onPressed: viewModel.getNameByCpf,
-                      child: const Text('pesquisar'),
-                    ),
-                    ElevatedButton(
-                      onPressed: viewModel.showBottomSheet2,
-                      child: const Text('bottom sheet'),
-                    )
-                  ],
+                TextField(
+                  controller: model.controller,
+                  decoration: const InputDecoration(
+                    labelText: 'Digite o CPF',
+                  ),
                 ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: model
+                      .getNameByCpf, // Chama a função apenas quando o botão for pressionado
+                  child: const Text('Buscar Usuário'),
+                ),
+                // Outros widgets ou funcionalidades...
               ],
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
-
-  @override
-  HomeViewModel viewModelBuilder(
-    BuildContext context,
-  ) =>
-      HomeViewModel();
 }

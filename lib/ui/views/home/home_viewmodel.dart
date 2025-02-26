@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:test_test/app/app.bottomsheets.dart';
 import 'package:test_test/app/app.dialogs.dart';
 import 'package:test_test/app/app.locator.dart';
-import 'package:test_test/ui/common/app_strings.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:test_test/models/user_model.dart'; // Importando o UserModel
 
 class HomeViewModel extends BaseViewModel {
   final _dialogService = locator<DialogService>();
@@ -13,17 +13,33 @@ class HomeViewModel extends BaseViewModel {
 
   TextEditingController controller = TextEditingController();
 
-  //todo: fazer um fromMap no UserModel e usar aqui pra transformar o mapa em UserModel
+  // Lista para armazenar todos os usuários (apenas nomes)
+  List<UserModel> usersList = [];
 
-  //todo: listar na tela todos os usuarios (APENAS O NOME)
+  // Método para obter todos os usuários da coleção "users" e listar apenas o nome
+  Future<void> getAllUsers() async {
+    try {
+      var querySnapshot =
+          await FirebaseFirestore.instance.collection('users').get();
 
-  //todo: metodo para aidiconar um usuario no banco
+      if (querySnapshot.docs.isNotEmpty) {
+        usersList = querySnapshot.docs.map((doc) {
+          return UserModel.fromMap(
+              doc.data(), doc.id); // Agora passando o doc.id (CPF) também
+        }).toList();
 
-  //todo: atualizar usuario no banco
+        print(usersList.map((user) => user.nome).toList()); // Exibir no console
 
-  //todo: pedir cpf, nome e idade
-  //salvar na collection "users"
-  //recuperar os dados do usuario pelo cpf
+        notifyListeners();
+      } else {
+        print("Nenhum usuário encontrado.");
+      }
+    } catch (e) {
+      print("Erro ao buscar usuários: $e");
+    }
+  }
+
+  // Método para buscar um usuário pelo CPF
   Future<void> getNameByCpf() async {
     try {
       var querySnapshot = await FirebaseFirestore.instance
@@ -32,33 +48,26 @@ class HomeViewModel extends BaseViewModel {
           .get();
 
       if (querySnapshot.docs.isNotEmpty) {
-        //querySnapshot são os resultados da busca (pode vir mais de um documento)
-        /*Por que o resultado é mais de um se eu estou buscando pelo cpf? */
+        var userDoc = querySnapshot.docs.first;
+        // Passando os dois parâmetros para o método fromMap
+        UserModel user = UserModel.fromMap(userDoc.data(), userDoc.id);
 
-//todo: pegar o primeiro documento encontrado
-//todo: transformar os dados desse documento em um UserModel (CRIAR USERMODEL)
-//todo: mostrar na tela os dados desse usuario encontrado (cpf, nome e idade)
+        print('Usuário encontrado: ${user.nome}, ${user.cpf}, ${user.idade}');
+      } else {
+        print("Usuário não encontrado.");
       }
-      return; // Retorna null se nenhum usuário for encontrado
     } catch (e) {
       print("Erro ao buscar usuário: $e");
-      return;
     }
   }
 
-  void showDialog() {
-    _dialogService.showCustomDialog(
-      variant: DialogType.iasmin,
-    );
-  }
-
+  // Método para exibir um BottomSheet com a lista de usuários
   void showBottomSheet2() {
-    _bottomSheetService.showCustomSheet(
-      variant: BottomSheetType.lola,
-      title: 'titulo',
-      description: 'descricao',
+    _bottomSheetService.showBottomSheet(
+      title: 'Usuários',
+      description: usersList.isNotEmpty
+          ? usersList.map((user) => user.nome).join(', ')
+          : 'Nenhum usuário encontrado.',
     );
   }
-
-  //todo: ao clicar em um usuario, voce vai mostrar os dados desse usuario em um dialogo(TODOS OS DADOS) (fazer comigo)
 }

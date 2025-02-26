@@ -1,0 +1,2 @@
+C:/Users/iasmi/OneDrive/Documentos/Projects/test_stacked_firebase/test_test/android/app/.cxx/Debug/l1d6p1g6/x86_64/CMakeFiles/edit_cache.dir
+C:/Users/iasmi/OneDrive/Documentos/Projects/test_stacked_firebase/test_test/android/app/.cxx/Debug/l1d6p1g6/x86_64/CMakeFiles/rebuild_cache.dir
