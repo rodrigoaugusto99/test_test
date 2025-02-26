@@ -4,7 +4,6 @@ import 'package:test_test/models/user_model.dart';
 class UserService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  // Método para adicionar um novo usuário ao Firestore
   Future<void> addUser(UserModel user) async {
     try {
       await _firestore.collection('users').doc(user.cpf).set(user.toMap());
@@ -14,7 +13,6 @@ class UserService {
     }
   }
 
-  // Método para atualizar os dados de um usuário existente
   Future<void> updateUser(UserModel user) async {
     try {
       await _firestore.collection('users').doc(user.cpf).update(user.toMap());
@@ -24,7 +22,6 @@ class UserService {
     }
   }
 
-  // Método para obter todos os usuários
   Future<List<UserModel>> getAllUsers() async {
     try {
       var querySnapshot = await _firestore.collection('users').get();
@@ -37,7 +34,6 @@ class UserService {
     }
   }
 
-  // Método para buscar usuário pelo CPF
   Future<UserModel?> getUserByCpf(String cpf) async {
     try {
       var docSnapshot = await _firestore.collection('users').doc(cpf).get();
