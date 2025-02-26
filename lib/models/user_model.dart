@@ -9,7 +9,7 @@ class UserModel {
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
       cpf: map['cpf'] ?? '',
-      nome: map['nome'] ?? '',
+      nome: map['name'] ?? '',
       idade: map['idade'] ?? 0,
     );
   }
@@ -18,7 +18,7 @@ class UserModel {
   Map<String, dynamic> toMap() {
     return {
       'cpf': cpf,
-      'nome': nome,
+      'name': nome, //o amarelinho é o campo do bd
       'idade': idade,
     };
   }

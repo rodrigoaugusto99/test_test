@@ -36,9 +36,9 @@ class UserService {
 
   Future<UserModel?> getUserByCpf(String cpf) async {
     try {
-      var docSnapshot = await _firestore.collection('users').doc(cpf).get();
-      if (docSnapshot.exists) {
-        return UserModel.fromMap(docSnapshot.data() as Map<String, dynamic>);
+      var docSnapshot = await _firestore.collection('users').where('cpf',isEqualTo: cpf).get();
+      if (docSnapshot.docs.isNotEmpty) {
+        return UserModel.fromMap(docSnapshot.docs.first.data() as Map<String, dynamic>);
       }
     } catch (e) {
       print("Erro ao buscar usuário: $e");
