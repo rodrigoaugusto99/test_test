@@ -1,68 +1,37 @@
 import 'dart:developer';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:test_test/app/app.bottomsheets.dart';
-import 'package:test_test/app/app.dialogs.dart';
-import 'package:test_test/app/app.locator.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:test_test/models/user_model.dart'; // Importando o UserModel
+import 'package:test_test/app/app.locator.dart';
+import 'package:test_test/models/user_model.dart';
+import 'package:test_test/services/user_service.dart';
 
 class Home2ViewModel extends BaseViewModel {
   final _dialogService = locator<DialogService>();
   final _bottomSheetService = locator<BottomSheetService>();
+  final _userService = locator<UserService>(); // Injeção do serviço
 
   TextEditingController controller = TextEditingController();
-
-  // Lista para armazenar todos os usuários (apenas nomes)
   List<UserModel> usersList = [];
+  UserModel? usuario;
 
-  // Método para obter todos os usuários da coleção "users" e listar apenas o nome
+  // Método para buscar todos os usuários através do UserService
   Future<void> getAllUsers() async {
-    try {
-      var querySnapshot =
-          await FirebaseFirestore.instance.collection('users').get();
-
-      if (querySnapshot.docs.isNotEmpty) {
-        usersList = querySnapshot.docs.map((doc) {
-          return UserModel.fromMap(
-              doc.data(), doc.id); // Agora passando o doc.id (CPF) também
-        }).toList();
-
-        print(usersList.map((user) => user.nome).toList()); // Exibir no console
-
-        notifyListeners();
-      } else {
-        print("Nenhum usuário encontrado.");
-      }
-    } catch (e) {
-      print("Erro ao buscar usuários: $e");
-    }
+    usersList = await _userService.getAllUsers();
+    notifyListeners(); // Atualiza a UI com os novos dados
   }
 
-  // Método para buscar um usuário pelo CPF
-  //todo: colocar essa funcao no service(chamar o service aqui)
+  // Método para buscar um usuário pelo CPF através do UserService
+  Future<void> getUserByCpf() async {
+    String cpf = controller.text.trim();
+    usuario = await _userService.getUserByCpf(cpf);
 
-  Future<void> getNameByCpf() async {
-    try {
-      var querySnapshot = await FirebaseFirestore.instance
-          .collection('users')
-          .where('cpf', isEqualTo: controller.text)
-          .get();
-      log('oi');
-      if (querySnapshot.docs.isNotEmpty) {
-        var userDoc = querySnapshot.docs.first;
-        // Passando os dois parâmetros para o método fromMap
-        UserModel user = UserModel.fromMap(userDoc.data(), userDoc.id);
-
-        print('Usuário encontrado: ${user.nome}, ${user.cpf}, ${user.idade}');
-      } else {
-        print("Usuário não encontrado.");
-      }
-    } catch (e) {
-      print("Erro ao buscar usuário: $e");
+    if (usuario != null) {
+      log('Usuário encontrado: ${usuario!.nome}, ${usuario!.cpf}, ${usuario!.idade}');
+    } else {
+      log('Usuário não encontrado.');
     }
+    notifyListeners(); // Atualiza a UI
   }
 
   // Método para exibir um BottomSheet com a lista de usuários
