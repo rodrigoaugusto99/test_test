@@ -34,12 +34,13 @@ class Home2View extends StackedView<Home2ViewModel> {
               ),
             ),
             const SizedBox(height: 20),
-            
+
             // 🔹 Exibir os dados do usuário encontrado
             if (viewModel.usuario != null) ...[
               Text(
                 'Nome: ${viewModel.usuario!.nome}',
-                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 5),
               Text(
@@ -52,9 +53,12 @@ class Home2View extends StackedView<Home2ViewModel> {
                 style: const TextStyle(fontSize: 16),
               ),
             ] else if (viewModel.isBusy) ...[
-              const Center(child: CircularProgressIndicator()), // Indicador de carregamento
+              const Center(
+                  child:
+                      CircularProgressIndicator()), // Indicador de carregamento
             ] else ...[
-              const Text('Nenhum usuário encontrado.', style: TextStyle(color: Colors.red)),
+              const Text('Nenhum usuário encontrado.',
+                  style: TextStyle(color: Colors.red)),
             ],
           ],
         ),

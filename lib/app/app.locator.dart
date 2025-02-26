@@ -18,9 +18,7 @@ final locator = StackedLocator.instance;
 Future<void> setupLocator({
   String? environment,
   EnvironmentFilter? environmentFilter,
-}) 
-
-async {
+}) async {
 // Register environments
   locator.registerEnvironment(
       environment: environment, environmentFilter: environmentFilter);
@@ -30,10 +28,4 @@ async {
   locator.registerLazySingleton(() => DialogService());
   locator.registerLazySingleton(() => NavigationService());
   locator.registerLazySingleton(() => UserService());
-
-
-void setupLocator() {
-  locator.registerLazySingleton(() => UserService());
-}
-
 }
