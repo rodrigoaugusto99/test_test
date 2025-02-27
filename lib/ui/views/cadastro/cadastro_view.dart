@@ -19,23 +19,17 @@ class CadastroView extends StackedView<CadastroViewModel> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             TextField(
+              controller: viewModel.cpfController, // Usa o controller
               decoration: const InputDecoration(labelText: 'CPF'),
-              onChanged: (value) {
-                viewModel.cpf = value;
-              },
             ),
             TextField(
+              controller: viewModel.nomeController, // Usa o controller
               decoration: const InputDecoration(labelText: 'Nome'),
-              onChanged: (value) {
-                viewModel.nome = value;
-              },
             ),
             TextField(
+              controller: viewModel.idadeController, // Usa o controller
               decoration: const InputDecoration(labelText: 'Idade'),
               keyboardType: TextInputType.number,
-              onChanged: (value) {
-                viewModel.idade = int.tryParse(value) ?? 0;
-              },
             ),
             const SizedBox(height: 20),
             ElevatedButton(

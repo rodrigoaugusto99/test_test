@@ -1,25 +1,28 @@
 class UserModel {
-  final String cpf;
-  final String nome;
-  final int idade;
+  String? id; // ID gerado pelo Firestore
+  String cpf;
+  String nome;
+  int idade;
 
-  UserModel({required this.cpf, required this.nome, required this.idade});
+  UserModel({this.id, required this.cpf, required this.nome, required this.idade});
 
-  // Método para converter de Map para UserModel
-  factory UserModel.fromMap(Map<String, dynamic> map) {
-    return UserModel(
-      cpf: map['cpf'] ?? '',
-      nome: map['name'] ?? '',
-      idade: map['idade'] ?? 0,
-    );
-  }
-
-  // Método para converter UserModel em Map
+  // Converte um objeto UserModel para um Map (para salvar no Firestore)
   Map<String, dynamic> toMap() {
     return {
+      'id': id,
       'cpf': cpf,
-      'name': nome, //o amarelinho é o campo do bd
+      'nome': nome,
       'idade': idade,
     };
+  }
+
+  // Constrói um UserModel a partir de um Map (quando busca do Firestore)
+  factory UserModel.fromMap(Map<String, dynamic> map, String documentId) {
+    return UserModel(
+      id: documentId, // Pega o ID do Firestore
+      cpf: map['cpf'],
+      nome: map['name'],
+      idade: map['idade'],
+    );
   }
 }
