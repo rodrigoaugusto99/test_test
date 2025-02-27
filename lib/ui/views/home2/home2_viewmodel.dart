@@ -24,12 +24,10 @@ class Home2ViewModel extends BaseViewModel {
   // Método para buscar um usuário pelo CPF através do UserService
   Future<void> getUserByCpf() async {
     String cpf = controller.text.trim();
-    usuario = await _userService.getUserByCpf(cpf);
-
-    if (usuario != null) {
-      log('Usuário encontrado: ${usuario!.nome}, ${usuario!.cpf}, ${usuario!.idade}');
-    } else {
-      log('Usuário não encontrado.');
+    try {
+      usuario = await _userService.getUserByCpf(cpf);
+    } on Exception catch (e) {
+      log('Usuário não encontrado: $e');
     }
     notifyListeners(); // Atualiza a UI
   }
