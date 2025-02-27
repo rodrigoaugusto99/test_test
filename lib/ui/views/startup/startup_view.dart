@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:stacked/stacked.dart';
-import 'package:test_test/ui/common/ui_helpers.dart';
-
-import 'startup_viewmodel.dart';
+import 'package:test_test/ui/views/startup/startup_viewmodel.dart';
 
 class StartupView extends StackedView<StartupViewModel> {
   const StartupView({Key? key}) : super(key: key);
@@ -15,14 +12,19 @@ class StartupView extends StackedView<StartupViewModel> {
     Widget? child,
   ) {
     return Scaffold(
-      body: Center(
+      appBar: AppBar(title: const Text('Startup View')),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             ElevatedButton(
-              onPressed: viewModel.navToHome,
-              child: const Text('Ir para a home'),
-            )
+              onPressed: () async {
+                viewModel.navToHome();
+              },
+              child: const Text('ir para a home'),
+            ),
+            const SizedBox(height: 20),
           ],
         ),
       ),
@@ -30,8 +32,5 @@ class StartupView extends StackedView<StartupViewModel> {
   }
 
   @override
-  StartupViewModel viewModelBuilder(
-    BuildContext context,
-  ) =>
-      StartupViewModel();
+  StartupViewModel viewModelBuilder(BuildContext context) => StartupViewModel();
 }

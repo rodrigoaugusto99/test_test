@@ -10,6 +10,8 @@ import 'package:flutter/material.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i3;
 import 'package:stacked_services/stacked_services.dart' as _i2;
+import 'package:test_test/models/user_model.dart' as _i8;
+import 'package:test_test/services/user_service.dart' as _i7;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -681,4 +683,50 @@ class MockDialogService extends _i1.Mock implements _i2.DialogService {
         ),
         returnValueForMissingStub: null,
       );
+}
+
+/// A class which mocks [UserService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockUserService extends _i1.Mock implements _i7.UserService {
+  @override
+  _i5.Future<void> addUser(_i8.UserModel? user) => (super.noSuchMethod(
+        Invocation.method(
+          #addUser,
+          [user],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+
+  @override
+  _i5.Future<void> updateUser(_i8.UserModel? user) => (super.noSuchMethod(
+        Invocation.method(
+          #updateUser,
+          [user],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+
+  @override
+  _i5.Future<List<_i8.UserModel>> getAllUsers() => (super.noSuchMethod(
+        Invocation.method(
+          #getAllUsers,
+          [],
+        ),
+        returnValue: _i5.Future<List<_i8.UserModel>>.value(<_i8.UserModel>[]),
+        returnValueForMissingStub:
+            _i5.Future<List<_i8.UserModel>>.value(<_i8.UserModel>[]),
+      ) as _i5.Future<List<_i8.UserModel>>);
+
+  @override
+  _i5.Future<_i8.UserModel?> getUserByCpf(String? cpf) => (super.noSuchMethod(
+        Invocation.method(
+          #getUserByCpf,
+          [cpf],
+        ),
+        returnValue: _i5.Future<_i8.UserModel?>.value(),
+        returnValueForMissingStub: _i5.Future<_i8.UserModel?>.value(),
+      ) as _i5.Future<_i8.UserModel?>);
 }

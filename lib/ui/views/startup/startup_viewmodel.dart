@@ -5,8 +5,7 @@ import 'package:stacked_services/stacked_services.dart';
 
 class StartupViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
-
   void navToHome() {
-    _navigationService.navigateToHomeView();
+    _navigationService.navigateToHome2View();
   }
 }
